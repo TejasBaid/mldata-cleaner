@@ -1,5 +1,5 @@
 [project]
-name = "mldata-cleaner"
+name = "mldclean"
 version = "0.1.0"
 description = "CLI tool for ML data cleaning and inspection"
 requires-python = ">=3.8"
@@ -8,7 +8,7 @@ dependencies = [
 ]
 
 [project.scripts]
-mldata-cleaner = "mldata_cleaner.cli:cli"
+mldclean = "mldclean.cli:cli"
 
 [build-system]
 requires = ["hatchling"]

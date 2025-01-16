@@ -12,24 +12,23 @@ import pandas as pd
 console = Console()
 
 HELP_TEXT = """
-# ML Data Cleaner Commands
+# ML Data Cleaner 
 
 ## Basic Commands
-* `inspect <file>` - Show basic dataset information
-* `clean <file> <output>` - Clean dataset with specified options
-* `interactive <file>` - Start interactive cleaning session
+* `inspect <file>` - Enter the interactive mode
 
-## Inspection Commands
-* `missing <file>` - Show missing value analysis
-* `duplicates <file>` - Show duplicate records
-* `stats <file>` - Show basic statistics
-* `types <file>` - Show column data types
+## Interactive mode Commands
+### Analysis
+* `Missing value analysis
+* `Duplicate record identification
+* `Basic statistics
+* `Column data types
 
-## Cleaning Commands
-* `fix-missing <file> <output> --strategy <strategy>` - Fix missing values
-* `remove-duplicates <file> <output>` - Remove duplicate records
-* `handle-outliers <file> <output> --column <col> --method <method>` - Remove outliers
-* `convert-type <file> <output> --column <col> --type <type>` - Convert column type
+### Cleaning Commands
+* `Fix missing values
+* `Remove duplicate records
+* `Remove outliers
+* `Convert column type
 
 ## Options
 * `--strategy`: mean, median, mode, constant, drop
