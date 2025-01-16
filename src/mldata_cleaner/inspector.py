@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 
 class DataInspector:
     def __init__(self, file_path):
@@ -16,15 +15,7 @@ class DataInspector:
     
     def analyze_missing_values(self):
         """Analyze missing values in detail"""
-        missing_data = {}
-        for column in self.df.columns:
-            missing_count = self.df[column].isnull().sum()
-            missing_percentage = (missing_count / len(self.df)) * 100
-            missing_data[column] = {
-                'count': missing_count,
-                'percentage': missing_percentage
-            }
-        return missing_data
+        return self.df.isnull().sum().to_dict()
     
     def get_data_types(self):
         """Get column data types"""
@@ -40,4 +31,13 @@ class DataInspector:
     
     def get_statistics(self):
         """Get numerical column statistics"""
-        return self.df.describe()
+        return self.df.describe().to_dict()
+
+    def get_column_stats(self, column):
+        """Get specific column statistics"""
+        return {
+            'type': self.df[column].dtype,
+            'missing': self.df[column].isnull().sum(),
+            'unique': self.df[column].nunique()
+        }
+    
