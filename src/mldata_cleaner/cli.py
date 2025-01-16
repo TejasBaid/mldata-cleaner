@@ -37,6 +37,57 @@ HELP_TEXT = """
 * `--type`: int, float, str, datetime, category
 """
 
+def display_missing_values(missing_values):
+    """Display missing values in a tabular format"""
+    table = Table(title="Missing Value Analysis")
+    table.add_column("Column", style="cyan", justify="left")
+    table.add_column("Missing Count", style="magenta", justify="right")
+    
+    for column, missing_count in missing_values.items():
+        table.add_row(column, str(missing_count))
+    
+    console.print(table)
+
+def display_data_types(data_types):
+    """Display column data types"""
+    table = Table(title="Data Types")
+    table.add_column("Column", style="cyan", justify="left")
+    table.add_column("Data Type", style="magenta", justify="left")
+    
+    for column, dtype in data_types.items():
+        table.add_row(column, str(dtype))
+    
+    console.print(table)
+
+def display_duplicates(duplicate_stats):
+    """Display duplicate analysis"""
+    table = Table(title="Duplicate Analysis")
+    table.add_column("Metric", style="cyan", justify="left")
+    table.add_column("Value", style="magenta", justify="right")
+    
+    table.add_row("Total Duplicates", str(duplicate_stats['total_duplicates']))
+    table.add_row("Percentage of Duplicates", f"{duplicate_stats['percentage']:.2f}%")
+    
+    console.print(table)
+
+def display_statistics(statistics):
+    """Display dataset statistics"""
+    table = Table(title="Dataset Statistics")
+    table.add_column("Statistic", style="cyan", justify="left")
+    for column in statistics.keys():
+        table.add_column(column, style="magenta", justify="right")
+    
+    stats_to_show = ['count', 'mean', 'std', 'min', '25%', '50%', '75%', 'max']
+    
+    for stat in stats_to_show:
+        row = [stat]
+        for column, column_stats in statistics.items():
+            row.append(f"{column_stats.get(stat, 'N/A'):.2f}" if isinstance(column_stats.get(stat), (int, float)) else "N/A")
+        table.add_row(*row)
+    
+    console.print(table)
+
+
 def print_menu(title, options):
     """Print a numbered menu"""
     console.print(f"\n[bold blue]{title}[/bold blue]")
@@ -53,6 +104,24 @@ def get_menu_choice(menu_map):
         if choice in menu_map.values():
             return choice
         console.print("[red]Invalid choice. Please try again.[/red]")
+def print_column_types(cleaner, columns):
+        """Print column types and relevant metadata"""
+        from rich.table import Table
+        from rich.console import Console
+
+        console = Console()
+        table = Table(title="Column Data Types")
+
+        table.add_column("Column", style="cyan", justify="left")
+        table.add_column("Type", style="magenta", justify="left")
+        table.add_column("Sample Value", style="green", justify="left")
+
+        for column in columns:
+            col_type = cleaner.get_column_type(column)
+            sample_value = cleaner.get_column_sample(column)
+            table.add_row(column, str(col_type), str(sample_value))
+
+        console.print(table)
 
 @click.group()
 def cli():
